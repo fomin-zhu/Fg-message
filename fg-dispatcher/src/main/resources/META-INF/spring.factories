@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.fn.common.dispatcher.config.MessageDispatcherConfiguration

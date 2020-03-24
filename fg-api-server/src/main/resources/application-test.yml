@@ -1,0 +1,11 @@
+server:
+  port: 801
+
+spring:
+  application:
+    name: fg-api-server
+  http:
+    encoding:
+      force: true
+
+debug: true

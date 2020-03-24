@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.fn.common.proto.http";
+option java_outer_classname = "RequestCodeProto";
+option objc_class_prefix = "";
+
+package fgame;
+
+enum PBCode {
+    SUCCESS = 0;                                // 成功
+    API_UNSUPPORTED = 1001;                     // API不支持
+    INTERNAL_ERROR = 1002;                      // 网络错误
+    PARAM_ERROR = 1003;                         // 参数错误
+    BAD_REQUEST = 1004;                         // 无效请求
+    SERVER_ERROR = 1005;                        // 服务器内部错误
+}

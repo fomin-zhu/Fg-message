@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.fn.common.proto.http";
+option java_outer_classname = "HttpProto";
+option objc_class_prefix = "";
+
+package fgame;
+
+//定义额pb文件
+enum PBMessageType {
+    DEFAULT_TYPE = 0;
+}
+
+// 请求消息
+message PBRequest {
+    uint32 type = 1;                            // 消息类型
+    bytes messageData = 2;                      // 请求数据
+    uint64 requestId = 3;                       // 请求 ID
+    uint64 timestamp = 4;                       // 客户端时间戳
+    bool compressed = 5;                        // 数据是否压缩
+
+    string accessToken = 13;                    // 用户登录后服务器返回的 token，用于登录校验
+    string adminAccessToken = 14;               // 管理员登录后服务器返回的token，用于登录校验
+}
+
+// 返回消息
+message PBResponse {
+    uint32 type = 1;                            // 消息类型
+    bytes messageData = 2;                      // 返回数据
+    uint64 requestId = 3;                       // 该响应对应的请求ID
+    uint32 resultCode = 4;                      // 返回的结果码
+    string resultInfo = 5;                      // 返回的结果消息提示文本（用于错误提示）
+    bool compressed = 6;                        // 返回数据是否压缩
+}
+
+
+message PBEmptyMessage {
+}
+
+message PBIntValue {
+    uint32 value = 1;
+}
+
+message PBLongValue {
+    uint64 value = 1;
+}
+
+message PBSIntValue {
+    int32 value = 1;
+}
+
+message PBSLongValue {
+    int64 value = 1;
+}
+
+message PBFloatValue {
+    float value = 1;
+}
+
+message PBDoubleValue {
+    double value = 1;
+}
+
+message PBStrValue {
+    string value = 1;
+}
+
+message PBBytesList {
+    repeated bytes data = 1;
+}

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+
+    <property name="dir" value="./logs" />
+    <property name="pattern" value="%date{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%thread] %-40logger{40} : %msg%n" />
+
+    <appender name="console-out" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${pattern}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>debug</level>
+        </filter>
+    </appender>
+
+    <appender name="file-out" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${dir}/fgame.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>${pattern}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>debug</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${dir}/fgame.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- keep 180 days' worth of history capped at 50GB total size -->
+            <maxHistory>10</maxHistory>
+            <totalSizeCap>10GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="error-out" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${dir}/fgame-error.log</file>
+        <encoder>
+            <pattern>${pattern}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>error</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${dir}/fly-whale-error-%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>20</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>200MB</maxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+    <logger name="org.springframework" level="ERROR" />
+    <logger name="java.sql" level="DEBUG" />
+    <logger name="org.mybatis" level="ERROR" />
+    <logger name="com.fn" level="DEBUG"/>
+    <logger name="*" level="WARN" />
+
+    <!-- Druid -->
+    <logger name="druid.sql" level="WARN" />
+    <logger name="druid.sql.DataSource" level="WARN" />
+    <logger name="druid.sql.Connection" level="WARN" />
+    <logger name="druid.sql.Statement" level="WARN" />
+    <logger name="druid.sql.ResultSet" level="WARN" />
+
+    <root level="WARN">
+        <appender-ref ref="console-out" />
+        <appender-ref ref="file-out" />
+        <appender-ref ref="error-out" />
+    </root>
+
+</configuration>
